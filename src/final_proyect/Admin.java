@@ -72,14 +72,9 @@ public class Admin extends User {
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen6\"]")).sendKeys(Keys.ENTER);
 		driver.findElement(By.xpath("//*[@class=\"btn btn-primary submitcoupon\"]")).click();
 		Thread.sleep(6000);
-//		WebElement text = driver.findElement(By.cssSelector("#content > div.panel.panel-default > div.panel-body > div.xcrud > div > div.xcrud-ajax > div.xcrud-list-container > table > tbody > tr:nth-child(0) > td:nth-child(4)"));
-//		String linkTextDear = text.getText();
-//		
-//		System.out.println(linkTextDear);
 	}
 	
 	public boolean validateCuponCreated(WebDriver driver, Data datac) {		
 		 return datac.params.get("CuponCode").contentEquals(driver.findElement(By.cssSelector("div.panel.panel-default > div.panel-body > div.xcrud > div > div.xcrud-ajax > div.xcrud-list-container > table > tbody > tr:nth-child(1) > td:nth-child(4)")).getText()) ? true : false ;
 	}
 }
-
