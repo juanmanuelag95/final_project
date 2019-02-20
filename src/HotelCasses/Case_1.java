@@ -30,8 +30,7 @@ public class Case_1 {
 		else
 			System.out.println("Hotel is Not Created");
 		
-//		Logout
+		admin.logout(driver);
 		driver.close();
-		
 	}
 }
