@@ -8,7 +8,7 @@ public class User {
 	String url;
 	
 	
-	public void Login (WebDriver driver) {
+	public void login(WebDriver driver) {
 		driver.navigate().to(this.url);
 		driver.findElement(By.name("email")).sendKeys(this.user);
 		driver.findElement(By.name("password")).sendKeys(this.pass);
