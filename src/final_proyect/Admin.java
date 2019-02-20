@@ -1,13 +1,8 @@
 package final_proyect;
-
-import java.util.List;
-
-//import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.By;
-//import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+	import java.util.List;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
 
 public class Admin extends User {
 	public Admin() {
@@ -36,5 +31,15 @@ public class Admin extends User {
 		
 		// Click on Add Button
 		driver.findElement(By.xpath("//*[@id=\"add\"]")).click();
+	}
+	
+	public boolean validateHotelIsCreated(WebDriver driver, Data data) {		
+		 return data.params.get("name").contentEquals(driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[2]/table/tbody/tr[1]/td[5]")).getText()) ? true : false ;
+	}
+
+	@Override
+	public void logout(WebDriver driver) {
+		// TODO Auto-generated method stub
+		
 	}
 }

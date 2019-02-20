@@ -2,7 +2,7 @@ package final_proyect;
 	import org.openqa.selenium.By;
 	import org.openqa.selenium.WebDriver;
 
-public class User {
+public abstract class User {
 	String user;
 	String pass;
 	String url;
@@ -15,4 +15,5 @@ public class User {
 		driver.findElement(By.xpath("/html/body/div/form[1]/button")).click();
 	}
 	
+	public abstract void logout(WebDriver driver);
 }
