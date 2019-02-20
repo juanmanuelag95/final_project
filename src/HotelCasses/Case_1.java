@@ -26,9 +26,9 @@ public class Case_1 {
 		admin.createHotel(driver, data);
 		
 		if (admin.validateHotelIsCreated(driver, data))
-			System.out.println("Hotel is Created");
+			System.out.println("Hotel has been Created");
 		else
-			System.out.println("Hotel is Not Created");
+			System.out.println("Hotel has not been Created");
 		
 		admin.logout(driver);
 		driver.close();
