@@ -10,13 +10,12 @@ class Data_1 extends Data {
 	Data_1(){
 		params.put("name", "Hotel Cancun");
 		params.put("description", "Best Hotel EVER!!!");
-		params.put("location", "Mexico City, Mexico");
+		params.put("location", "Mexico");
 	}
 }
 
-
 public class Case_1 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	

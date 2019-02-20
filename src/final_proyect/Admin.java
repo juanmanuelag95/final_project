@@ -1,9 +1,13 @@
 package final_proyect;
 
+import java.util.List;
+
 //import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+//import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class Admin extends User {
 	public Admin() {
@@ -12,19 +16,25 @@ public class Admin extends User {
 		this.url  = "https://www.phptravels.net/admin";
 	}
 	
-	public void createHotel(WebDriver driver, Data data) {
-		
+	public void createHotel(WebDriver driver, Data data) throws InterruptedException {
+		// Path to get to Add Hotel
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"content\"]/div/form/button")).click();
 		
+		// Complete the form
 		driver.findElement(By.name("hotelname")).sendKeys(data.params.get("name"));
-//		driver.findElement(By.name("hoteldesc")).sendKeys(data.params.get("name"));
 		
+		driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"cke_1_contents\"]/iframe")));
+		driver.findElement(By.cssSelector("body")).sendKeys(data.params.get("description"));
+		driver.switchTo().defaultContent();
 		
-		driver.switchTo().frame(1);
-		driver.findElement(By.xpath("/html/body/p")).sendKeys(data.params.get("name"));
+		driver.findElement(By.xpath("//*[@id=\"s2id_searching\"]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"select2-drop\"]/div/input")).sendKeys(data.params.get("location"));
+		List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='select2-result-label']"));
+		listOptions.get(0).click();
 		
-		
+		// Click on Add Button
+		driver.findElement(By.xpath("//*[@id=\"add\"]")).click();
 	}
 }
