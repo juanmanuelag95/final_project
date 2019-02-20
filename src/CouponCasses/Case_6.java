@@ -29,7 +29,7 @@ public class Case_6 {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		admin.login(driver);
-		admin.generateTicket(driver, datac);
+		admin.generateCupon(driver, datac);
 		
 		if (admin.validateCuponCreated(driver, datac))
 			System.out.println("Cupon has been Created");

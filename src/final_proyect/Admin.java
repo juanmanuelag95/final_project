@@ -47,7 +47,7 @@ public class Admin extends User {
 	}
 
 	
-	public void generateTicket (WebDriver driver, Data datac) throws InterruptedException  {
+	public void generateCupon (WebDriver driver, Data datac) throws InterruptedException  {
 		
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
