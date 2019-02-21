@@ -1,24 +1,23 @@
 package CouponCasses;
-	import java.util.concurrent.TimeUnit;
+	import java.text.ParseException;
+import java.util.concurrent.TimeUnit;
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.chrome.ChromeDriver;
 	import final_proyect.Admin;
 
-public class Case_2 {
-	public static void main(String[] args) throws InterruptedException {
+public class Case_3 {
+	public static void main(String[] args) throws InterruptedException, ParseException{
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	
-		DataC 	data = new DataC();
+		
 		Admin 	admin = new Admin();
 		
 		admin.login(driver);
-		admin.CouponToMultiple(driver, data);
 		
-		if (admin.validateCouponCreated(driver, data))
-			System.out.println("Cupon has been Created");
+		if (admin.validateCuponAvailable(driver, "QJpk"))
+			System.out.println("Cupon is available");
 		else
-			System.out.println("Cupon has not been Created");
+			System.out.println("Cupon is not available");
 		
 		admin.logout(driver);
 		driver.close();
