@@ -19,8 +19,6 @@ class DataHC2 extends Data {
 		params.put("HotelName", "Grand Plaza Serviced Apartments");
 		params.put("CheckIn", "22/02/2019");
 		params.put("CheckOut", "25/02/2019");
-		params.put("Adults", "1");
-		params.put("Child", "1");
 		params.put("People", "1 Adult 1 Child");
 	}
 }
