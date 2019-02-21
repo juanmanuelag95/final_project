@@ -1,4 +1,10 @@
 package final_proyect;
+	import java.util.List;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.Keys;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import org.openqa.selenium.By;
@@ -7,6 +13,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
 
 public class Admin extends User {
 	public Admin() {
@@ -50,6 +57,13 @@ public class Admin extends User {
 		driver.findElement(By.xpath("/html/body/div[2]/aside/div/div[2]/div/div[2]/div/a")).click();
 	}
 
+	
+	public void generateCupon (WebDriver driver, Data datac) throws InterruptedException  {
+		
+		// Go to Coupon-Add Section
+		goToCopuonAdd(driver);
+		
+		// Fill the form
 	public void generateCoupon(WebDriver driver, Data datac) throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
@@ -59,6 +73,7 @@ public class Admin extends User {
 
 		WebElement Status = driver.findElement(By.name("status"));
 		Select selectStatus = new Select(Status);
+		selectStatus.selectByVisibleText(datac.params.get("status"));
 		selectStatus.selectByVisibleText(datac.params.get("status"));
 
 		driver.findElement(By.name("rate")).sendKeys(datac.params.get("percentage"));
@@ -81,6 +96,45 @@ public class Admin extends User {
 		return datac.params.get("CuponCode").contentEquals(driver.findElement(By.cssSelector(
 				"div.panel.panel-default > div.panel-body > div.xcrud > div > div.xcrud-ajax > div.xcrud-list-container > table > tbody > tr:nth-child(1) > td:nth-child(4)"))
 				.getText()) ? true : false;
+	}
+
+	public void CouponToMultiple(WebDriver driver, Data data) throws InterruptedException {
+		
+		// Go to Coupon-Add Section
+		goToCopuonAdd(driver);
+		
+		// Fill the form
+		WebElement Status = driver.findElement(By.name("status"));
+		Select selectStatus = new Select(Status);
+		selectStatus.selectByVisibleText(data.params.get("status"));
+		driver.findElement(By.name("rate")).sendKeys(data.params.get("percentage"));
+		driver.findElement(By.name("max")).sendKeys(data.params.get("max"));
+		driver.findElement(By.name("startdate")).sendKeys(data.params.get("startdate"));
+		driver.findElement(By.name("expdate")).sendKeys(data.params.get("expdate"));
+		
+		// Click All Options
+		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[1]/ins")).click();
+		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[2]/ins")).click();
+		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[3]/ins")).click();
+		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[4]/ins")).click();
+		
+		// Fill the form
+		driver.findElement(By.name("code")).sendKeys(data.params.get("CuponCode"));
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(data.params.get("Assign_hotel"));
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen4\"]")).sendKeys(data.params.get("Assign_Tours"));
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen4\"]")).sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen6\"]")).sendKeys(data.params.get("Assign_Cars"));
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen6\"]")).sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//*[@class=\"btn btn-primary submitcoupon\"]")).click();
+		Thread.sleep(6000);
+	}
+
+	private void goToCopuonAdd(WebDriver driver) {
+		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
 	}
 
 	public void autogenerateCoupon(WebDriver driver, Data datac7) throws InterruptedException {

@@ -18,4 +18,11 @@ public class Costumer extends User {
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/ul/li[1]/a")).click();
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/ul/li[1]/ul/li[2]/a")).click();
 	}
+
+	public boolean couponAvailable(WebDriver driver) {
+		// TODO Auto-generated method stub
+		
+		return true;
+		
+	}
 }
