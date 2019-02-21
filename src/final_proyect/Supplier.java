@@ -12,9 +12,16 @@ package final_proyect;
 
 public class Supplier extends User {
 	public Supplier() {
-		this.user = "supplier@phptravels.com";
-		this.pass = "demosupplier";
-		this.url  = "https://www.phptravels.net/supplier";
+		this.user 		= "supplier@phptravels.com";
+		this.pass 		= "demosupplier";
+		this.url  		= "https://www.phptravels.net/supplier";
+		this.inputName  = "email";
+		this.pathToLogin = "/html/body/div/form[1]/button";
+	}
+
+	@Override
+	public void logout(WebDriver driver) {
+		driver.findElement(By.xpath("/html/body/div[2]/aside/div/div[2]/div/div[2]/div/a")).click();
 	}
 	
 	public int countBookings(WebDriver driver) throws InterruptedException{

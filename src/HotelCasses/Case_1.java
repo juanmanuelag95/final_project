@@ -10,7 +10,7 @@ class Data_1 extends Data {
 	Data_1(){
 		params.put("name", "Hotel Cancun");
 		params.put("description", "Best Hotel EVER!!!");
-		params.put("location", "Mexico");
+		params.put("location", "Cancun");
 	}
 }
 
@@ -25,9 +25,12 @@ public class Case_1 {
 		admin.login(driver);
 		admin.createHotel(driver, data);
 		
-//		validateHotelIsCreated
-//		Logout
-//		driver.close();
+		if (admin.validateHotelIsCreated(driver, data))
+			System.out.println("Hotel has been Created");
+		else
+			System.out.println("Hotel has not been Created");
 		
+		admin.logout(driver);
+		driver.close();
 	}
 }
