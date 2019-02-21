@@ -6,15 +6,6 @@ package final_proyect;
 	import org.openqa.selenium.WebElement;
 	import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
-import org.openqa.selenium.By;
-
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
-
 public class Admin extends User {
 	public Admin() {
 		this.user = "admin@phptravels.com";
@@ -57,15 +48,12 @@ public class Admin extends User {
 		driver.findElement(By.xpath("/html/body/div[2]/aside/div/div[2]/div/div[2]/div/a")).click();
 	}
 
-	
-	public void generateCupon (WebDriver driver, Data datac) throws InterruptedException  {
-		
+
+	public void generateCoupon(WebDriver driver, Data datac) throws InterruptedException {
 		// Go to Coupon-Add Section
 		goToCopuonAdd(driver);
 		
 		// Fill the form
-	public void generateCoupon(WebDriver driver, Data datac) throws InterruptedException {
-
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
