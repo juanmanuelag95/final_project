@@ -1,4 +1,12 @@
 package final_proyect;
+
+	import java.text.ParseException;
+	import java.text.SimpleDateFormat;
+	import java.time.LocalDateTime;
+	import java.time.format.DateTimeFormatter;
+	import java.util.Date;
+	import java.util.List;
+	import org.openqa.selenium.By;
 	import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +62,8 @@ public class Admin extends User {
 
 	public void generateCoupon(WebDriver driver, Data datac) throws InterruptedException {
 		// Go to Coupon-Add Section
-		goToCopuonAdd(driver);
+		goToCopuon(driver);
+		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
 		
 		// Fill the form
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
@@ -92,7 +101,8 @@ public class Admin extends User {
 	public void CouponToMultiple(WebDriver driver, Data data) throws InterruptedException {
 		
 		// Go to Coupon-Add Section
-		goToCopuonAdd(driver);
+		goToCopuon(driver);
+		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
 		
 		// Fill the form
 		WebElement Status = driver.findElement(By.name("status"));
@@ -121,11 +131,49 @@ public class Admin extends User {
 		Thread.sleep(6000);
 	}
 
-	private void goToCopuonAdd(WebDriver driver) {
+	// Fix to dynamic search !!!
+	private void goToCopuon(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
+	}
+
+	public boolean validateCuponAvailable(WebDriver driver, String cupon) throws ParseException {
+		// Go to Coupon-Add Section
+		goToCopuon(driver);
+		
+		WebElement dateWidget = driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/table"));
+		List<WebElement> columns = dateWidget.findElements(By.tagName("td"));
+		
+		int i = 0;
+		int indexCoupon = 0;
+		for (WebElement cell: columns){
+			if (cupon.equals(cell.getText())) {
+				indexCoupon = i / 10;
+				indexCoupon++;
+				break;
+			}
+			i++;
+		}
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDateTime now = LocalDateTime.now();
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+	    
+		Date currentDate = format.parse(dtf.format(now));
+	    Date couponDate  = format.parse(driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/table/tbody/tr["+indexCoupon+"]/td[9]")).getText());
+
+	    if (currentDate.compareTo(couponDate) >= 0) {
+	    	// Out of date
+	    	WebElement couponStatus = driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/table/tbody/tr["+indexCoupon+"]/td[10]/i"));
+
+	    	if (couponStatus.getAttribute("class").equals("fa fa-times text-danger"))
+	    		return false;
+	    	else
+	    		return true;
+	    }
+	    
+		return false;
 	}
 
 	public void autogenerateCoupon(WebDriver driver, Data datac7) throws InterruptedException {
