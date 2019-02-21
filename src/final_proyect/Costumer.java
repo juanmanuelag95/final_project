@@ -72,44 +72,65 @@ public class Costumer extends User {
         driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
 	}
 	
-	public void bookHotel(WebDriver driver, Data datahc2) throws InterruptedException {
+	public void bookHotel(WebDriver driver, Data data) throws InterruptedException {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		Thread.sleep(6000);
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
 		Thread.sleep(6000);
-		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(datahc2.params.get("HotelName"));
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("HotelName"));
 		Thread.sleep(3000);
 		List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='select2-result-label']"));
 		for (WebElement option: listOptions){
-            if (option.getText().equalsIgnoreCase("Grand Plaza Serviced Apartments, London"))    
+            if (option.getText().contains(data.params.get("HotelName")))   
                 option.click();
 		}
+		
 		Thread.sleep(3000);
-		driver.findElement(By.name("checkin")).sendKeys(datahc2.params.get("CheckIn"));
-		driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys(datahc2.params.get("CheckOut"));
+		driver.findElement(By.name("checkin")).sendKeys(data.params.get("CheckIn"));
+		driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys(data.params.get("CheckOut"));
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).clear();
-		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).sendKeys(datahc2.params.get("People"));
+		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).sendKeys(data.params.get("People"));
 		Thread.sleep(5000); 
 		driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+		
+		//At hotel's page
+		
 		Thread.sleep(4000);
 		js.executeScript("window.scrollBy(0,1400)");
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/table/tbody/tr[1]/td/div[2]/div[2]/div/div[3]/div/label/div")).click();
-		driver.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/button")).click();
-		Thread.sleep(4000);
-		js.executeScript("window.scrollBy(0,15000)");
-		driver.findElement(By.name("logged")).click();
-		Thread.sleep(6000);
-		driver.findElement(By.xpath("//*[@class=\"btn btn-default arrivalpay\"]")).click();
-		Thread.sleep(4000);
-		Alert simpleAlert = driver.switchTo().alert();
-		simpleAlert.accept();
-		Thread.sleep(6000);
-		WebElement text = driver.findElement(By.xpath("//*[@id=\"invoiceTable\"]/tbody/tr[1]/td/div/b"));
-		String AutoCode = text.getText();
-		System.out.println("YOUR BOOKING STATUS IS : " + AutoCode);
-		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();	
+
+		// @Rodrigo *** Let's check if there are available rooms 
+		
+		WebElement roomsTable = driver.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/table"));
+		List<WebElement> rooms = roomsTable.findElements(By.tagName("tr"));
+		if (rooms.size() == 0)
+		{
+			
+			System.out.println("No rooms vailable");
+			
+		} else { 
+			
+			// *** Continue if it's true
+			
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/table/tbody/tr[1]/td/div[2]/div[2]/div/div[3]/div/label/div")).click();
+			driver.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/button")).click();
+			Thread.sleep(4000);
+			js.executeScript("window.scrollBy(0,15000)");
+			driver.findElement(By.name("logged")).click();
+			Thread.sleep(6000);
+			driver.findElement(By.xpath("//*[@class=\"btn btn-default arrivalpay\"]")).click();
+			Thread.sleep(4000);
+			Alert simpleAlert = driver.switchTo().alert();
+			simpleAlert.accept();
+			Thread.sleep(6000);
+			WebElement text = driver.findElement(By.xpath("//*[@id=\"invoiceTable\"]/tbody/tr[1]/td/div/b"));
+			String AutoCode = text.getText();
+			System.out.println("YOUR BOOKING STATUS IS : " + AutoCode);
+			
+		}
+		
+		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
 	}
 }
