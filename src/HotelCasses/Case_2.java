@@ -10,6 +10,7 @@ package HotelCasses;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import final_proyect.Admin;
 import final_proyect.Costumer;
 import final_proyect.Data;
 
@@ -30,7 +31,10 @@ public class Case_2 {
 		DataHC2 datahc2 = new DataHC2();
 		WebDriver driver = new ChromeDriver();
 		Costumer cust = new Costumer();
+		Admin admin = new Admin();
 		
+		admin.login(driver);
+		admin.validateHotelIsAble(driver, datahc2);
 		cust.login(driver);
 		
 		cust.bookHotel(driver, datahc2);
