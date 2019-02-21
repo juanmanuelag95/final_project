@@ -7,6 +7,7 @@ package final_proyect;
 	import java.util.Date;
 	import java.util.List;
 	import org.openqa.selenium.By;
+	import java.util.concurrent.TimeUnit;
 	import org.openqa.selenium.Keys;
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.WebElement;
@@ -207,4 +208,38 @@ public class Admin extends User {
 		Thread.sleep(6000);
 
 	}
+
+	public void enableAllModules(WebDriver driver) throws InterruptedException {
+		//Routine
+		
+		login(driver);
+		
+		Thread.sleep(3000);
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		
+		driver.navigate().to("https://www.phptravels.net/admin/settings/modules/");
+		
+		WebElement modulesTable = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/table/tbody"));
+		List<WebElement> disabledModules = modulesTable.findElements(By.cssSelector("[class = 'btn btn-xs btn-disable']"));
+		
+		while (disabledModules.size()>1) {
+			Thread.sleep(2000);
+			modulesTable = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/table/tbody"));
+			disabledModules = modulesTable.findElements(By.cssSelector("[class = 'btn btn-xs btn-disable']"));
+			disabledModules.get(0).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//*[@id=\"smartAlertButtons\"]/div[1]")).click();
+		} 
+	
+		System.out.println("All modules are ENABLED");
+		
+		Thread.sleep(2000);
+		
+		logout(driver);
+		driver.close();
+		
+	}
+	
 }
