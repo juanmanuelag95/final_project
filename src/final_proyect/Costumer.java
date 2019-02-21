@@ -1,14 +1,10 @@
 package final_proyect;
-
-import java.util.List;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.Alert;
-
+	import java.util.List;
+	import org.openqa.selenium.Alert;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.JavascriptExecutor;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
 
 public class Costumer extends User {
 	public Costumer() {
@@ -114,8 +110,6 @@ public class Costumer extends User {
 		WebElement text = driver.findElement(By.xpath("//*[@id=\"invoiceTable\"]/tbody/tr[1]/td/div/b"));
 		String AutoCode = text.getText();
 		System.out.println("YOUR BOOKING STATUS IS : " + AutoCode);
-		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
-		
-		
+		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();	
 	}
 }
