@@ -15,7 +15,7 @@ public class Case_2 {
 		admin.login(driver);
 		admin.CouponToMultiple(driver, data);
 		
-		if (admin.validateCuponCreated(driver, data))
+		if (admin.validateCouponCreated(driver, data))
 			System.out.println("Cupon has been Created");
 		else
 			System.out.println("Cupon has not been Created");

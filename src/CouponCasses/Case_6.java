@@ -1,3 +1,9 @@
+//--------------------------------------------------//  
+//     Coupons                                       //
+//     Test Case 6                                  //
+//     A coupon code can be generated               //
+//--------------------------------------------------//
+
 package CouponCasses;
 	import java.util.concurrent.TimeUnit;
 	import org.openqa.selenium.WebDriver;
@@ -29,9 +35,9 @@ public class Case_6 {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		admin.login(driver);
-		admin.generateCupon(driver, datac);
+		admin.generateCoupon(driver, datac);
 		
-		if (admin.validateCuponCreated(driver, datac))
+		if (admin.validateCouponCreated(driver, datac))
 			System.out.println("Cupon has been Created");
 		else
 			System.out.println("Cupon has not been Created");
