@@ -174,9 +174,8 @@ public class Admin extends User {
 
 	public void autogenerateCoupon(WebDriver driver, Data datac7) throws InterruptedException {
 
-		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
+		// Go to Coupon-Add Section
+		goToCopuon(driver);
 		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
 
 		WebElement Status = driver.findElement(By.name("status"));

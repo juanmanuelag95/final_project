@@ -7,22 +7,29 @@ package HotelCasses;
 
 class Data_8_Hotel extends Data {
 	Data_8_Hotel(){
-		params.put("cupon", "Hotel Cancun");
+		params.put("hotel", "RENDEZVOUS HOTELS");
+		params.put("checkin", "28/02/2019");
+		params.put("checkout", "10/03/2019");
+		params.put("location", "Ödeme Seçenekleri , Singapore");
+		params.put("coupon", "wWIw");
 	}
 }
 
 public class Case_8 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
+		Data_8_Hotel data = new Data_8_Hotel();
 		Costumer costumer = new Costumer();
 		costumer.login(driver);
 		
-		if (costumer.couponAvailable(driver))
+		if (costumer.couponAvailable(driver, data))
 			System.out.println("Cupon Available");
 		else
 			System.out.println("Cupon Not Available");
-			
+		
+		costumer.logout(driver);
+		driver.close();
 	}
 }
