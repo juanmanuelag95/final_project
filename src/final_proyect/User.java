@@ -11,6 +11,7 @@ public abstract class User {
 	
 	public void login(WebDriver driver) {
 		driver.navigate().to(this.url);
+		driver.manage().window().maximize();
 		driver.findElement(By.name(this.inputName)).sendKeys(this.user);
 		driver.findElement(By.name("password")).sendKeys(this.pass);
 		driver.findElement(By.xpath(this.pathToLogin)).click();
