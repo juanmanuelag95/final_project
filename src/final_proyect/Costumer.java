@@ -17,8 +17,9 @@ public class Costumer extends User {
 
 	@Override
 	public void logout(WebDriver driver) throws InterruptedException {
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/ul/li[1]/a")).click();
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/ul/li[1]/ul/li[2]/a")).click();
 	}
 
@@ -58,42 +59,34 @@ public class Costumer extends User {
         return result;
 	}
 
-	private void makeTheBook(WebDriver driver, Data data) {
-		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[2]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("hotel"));
+	private void makeTheBook(WebDriver driver, Data data) throws InterruptedException {
+		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("hotelName"));
+		Thread.sleep(2000);
+		
         List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='select2-result-label']"));
+		for (WebElement option: listOptions){
+            if (option.getText().contains(data.params.get("hotelName")))   
+                option.click();
+		}
         
-        for (WebElement option: listOptions)
-        	if (option.getText().equalsIgnoreCase(data.params.get("location"))) 	
-        		option.click();
-        
-        driver.findElement(By.name("checkin")).sendKeys(data.params.get("checkin"));
-        driver.findElement(By.name("checkout")).sendKeys(data.params.get("checkout"));
-        driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.name("checkin")).sendKeys(data.params.get("checkin"));
+		driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys(data.params.get("checkout"));
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).clear();
+		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).sendKeys(data.params.get("people"));
+		Thread.sleep(2000); 
+		driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
 	}
 	
 	public void bookHotel(WebDriver driver, Data data) throws InterruptedException {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
-		Thread.sleep(6000);
-		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
-		Thread.sleep(6000);
-		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("HotelName"));
-		Thread.sleep(3000);
-		List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='select2-result-label']"));
-		for (WebElement option: listOptions){
-            if (option.getText().contains(data.params.get("HotelName")))   
-                option.click();
-		}
-		
-		Thread.sleep(3000);
-		driver.findElement(By.name("checkin")).sendKeys(data.params.get("CheckIn"));
-		driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys(data.params.get("CheckOut"));
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).clear();
-		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).sendKeys(data.params.get("People"));
-		Thread.sleep(5000); 
-		driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+		makeTheBook(driver, data);
 		
 		//At hotel's page
 		
@@ -132,5 +125,68 @@ public class Costumer extends User {
 		}
 		
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
+	}
+
+	public boolean checkFacilities(WebDriver driver, Data data) throws InterruptedException {
+		Thread.sleep(3000);
+        makeTheBook(driver,data);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        
+        WebElement dateWidget = driver.findElement(By.xpath("//*[@id=\"body-section\"]/div[5]/div/div[3]/div[1]/div/table"));
+		List<WebElement> listOptions = dateWidget.findElements(By.tagName("td"));
+            
+        for (WebElement option: listOptions) {
+        	js.executeScript("window.scrollBy(0,200)");
+        	if (option.findElement(By.tagName("b")).getText().contains(data.params.get("toSearch"))) {
+        		List<WebElement> listFacilities = option.findElements(By.tagName("img"));
+        		boolean result;
+        		
+        		if (listFacilities.size() > 1)
+        			result = true;
+        		else
+        			result = false;
+        		
+        		js.executeScript("window.scrollBy(0,2000)");
+                return result;
+	    	}
+        }
+        
+        return false; 
+	}
+
+	public boolean checkDiscountCoupon(WebDriver driver, Data data) throws InterruptedException {
+		Thread.sleep(3000);
+        makeTheBook(driver,data);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Thread.sleep(3000);
+        js.executeScript("window.scrollBy(0,1300)");
+        
+        List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='control__indicator']"));
+
+        for (WebElement option: listOptions) {
+        	option.click();  
+        	break;
+        }
+        
+        driver.findElement(By.xpath("//*[@id='ROOMS']/div/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[2]/input")).sendKeys(data.params.get("coupon"));
+        driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[3]/span")).click();
+        
+        String discount = driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[4]/div/strong")).getText();
+        discount = discount.substring(0, discount.length() - 1);
+
+        String price = driver.findElement(By.xpath("//*[@id=\"displaytotal\"]")).getText();
+        
+        driver.findElement(By.name("logged")).click();
+        
+        String actualPrice = driver.findElement(By.xpath("//*[@id=\"invoiceTable\"]/tbody/tr[4]/td/table/tbody/tr[2]/td/table[2]/tbody/tr/td[3]")).getText();
+        actualPrice = actualPrice.substring(5, actualPrice.length()).replace(",", "");
+
+        int expectedPrice = ((100 - Integer.parseInt(discount)) * Integer.parseInt(price)) / 100;
+        
+        if (Integer.parseInt(actualPrice)	== expectedPrice) 
+        	return true;
+        else 
+        	return false;
 	}
 }

@@ -3,32 +3,32 @@ package HotelCasses;
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.chrome.ChromeDriver;
 	import final_proyect.Costumer;
-	import final_proyect.Data;
-
-class Data_8_Hotel extends Data {
-	Data_8_Hotel(){
-		params.put("hotelName", "Ödeme Seçenekleri");
+import final_proyect.Data;
+	
+class Data_3_Hotel extends Data {
+	Data_3_Hotel(){
+		params.put("hotelName", "Mexico City");
 		params.put("checkin", "28/02/2019");
 		params.put("checkout", "10/03/2019");
 		params.put("people", "2 Adult 0 Child");
-		params.put("coupon", "wWIw");
+		params.put("toSearch", "Rendezvous Hotels");
 	}
 }
 
-public class Case_8 {
+public class Case_3 {
 	public static void main(String[] args) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
-		Data_8_Hotel data = new Data_8_Hotel();
+		Data_3_Hotel data = new Data_3_Hotel();
 		Costumer costumer = new Costumer();
 		costumer.login(driver);
-		
-		if (costumer.couponAvailable(driver, data))
-			System.out.println("Cupon Available");
+		if (costumer.checkFacilities(driver, data))
+			System.out.println("Facilities are displayed");
 		else
-			System.out.println("Cupon Not Available");
+			System.out.println("Facilities are not displayed");
 		
+		costumer.logout(driver);
 		driver.close();
 	}
 }
