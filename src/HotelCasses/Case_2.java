@@ -15,10 +15,10 @@ import final_proyect.Data;
 
 class DataHC2 extends Data {
 	DataHC2() {
-		params.put("HotelName", "Grand Plaza Serviced Apartments");
-		params.put("CheckIn", "22/02/2019");
-		params.put("CheckOut", "25/02/2019");
-		params.put("People", "1 Adult 1 Child");
+		params.put("hotelName", "Grand Plaza Serviced Apartments");
+		params.put("checkin", "22/02/2019");
+		params.put("checkout", "25/02/2019");
+		params.put("people", "1 Adult 1 Child");
 	}
 }
 
@@ -30,10 +30,9 @@ public class Case_2 {
 		Costumer cust = new Costumer();
 		
 		cust.login(driver);
-		
 		cust.bookHotel(driver, datahc2);
 		
-
+		driver.close();
 	}
 
 }

@@ -7,10 +7,10 @@ package HotelCasses;
 
 class Data_8_Hotel extends Data {
 	Data_8_Hotel(){
-		params.put("hotel", "RENDEZVOUS HOTELS");
+		params.put("hotelName", "Ödeme Seçenekleri");
 		params.put("checkin", "28/02/2019");
 		params.put("checkout", "10/03/2019");
-		params.put("location", "Ã–deme SeÃ§enekleri , Singapore");
+		params.put("people", "2 Adult 0 Child");
 		params.put("coupon", "wWIw");
 	}
 }
@@ -29,7 +29,6 @@ public class Case_8 {
 		else
 			System.out.println("Cupon Not Available");
 		
-		costumer.logout(driver);
 		driver.close();
 	}
 }

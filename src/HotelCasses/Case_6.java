@@ -9,10 +9,10 @@ package HotelCasses;
 	
 class Data_6 extends Data {
 	Data_6(){
-		params.put("HotelName", "Paseos del Manantial");
-		params.put("CheckIn", "22/02/2019");
-		params.put("CheckOut", "25/02/2019");
-		params.put("People", "2 Adult 0 Child");
+		params.put("hotelName", "Paseos del Manantial");
+		params.put("checkin", "22/02/2019");
+		params.put("checkout", "25/02/2019");
+		params.put("people", "2 Adult 0 Child");
 	}
 }
 
@@ -28,6 +28,8 @@ public class Case_6 {
 		
 		costumer.login(driver);
 		costumer.bookHotel(driver, data);
+		
+		driver.close();
 		
 	}
 	
