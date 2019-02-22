@@ -7,10 +7,10 @@ import final_proyect.Data;
 	
 class Data_3_Hotel extends Data {
 	Data_3_Hotel(){
-		params.put("hotel", "mex");
+		params.put("hotelName", "Mexico City");
 		params.put("checkin", "28/02/2019");
 		params.put("checkout", "10/03/2019");
-		params.put("location", "Mexico City, Mexico");
+		params.put("people", "2 Adult 0 Child");
 		params.put("toSearch", "Rendezvous Hotels");
 	}
 }
