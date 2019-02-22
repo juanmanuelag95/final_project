@@ -189,4 +189,36 @@ public class Costumer extends User {
         else 
         	return false;
 	}
+
+	public boolean couponNotAvailable(WebDriver driver, Data data) throws InterruptedException {
+		Thread.sleep(3000);
+        makeTheBook(driver,data);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Thread.sleep(3000);
+        js.executeScript("window.scrollBy(0,1300)");
+        
+        List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='control__indicator']"));
+
+        for (WebElement option: listOptions) {
+        	option.click();  
+        	break;
+        }
+        
+        driver.findElement(By.xpath("//*[@id='ROOMS']/div/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[2]/input")).sendKeys(data.params.get("coupon"));
+        driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[3]/span")).click();
+        
+        Thread.sleep(1000);
+        Alert simpleAlert = driver.switchTo().alert();
+        boolean result;
+        
+        if (simpleAlert.getText().equals("Invalid Coupon"))
+        	result = true;
+		else 
+			result =  false;
+        
+        simpleAlert.accept();
+		Thread.sleep(2000);
+		return result;
+	}
 }
