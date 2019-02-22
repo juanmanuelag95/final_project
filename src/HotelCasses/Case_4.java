@@ -11,9 +11,10 @@ import org.openqa.selenium.WebDriver;
 
 class Data_4 extends Data {
 	Data_4(){
-		params.put("name", "Hotel Cancun");
-		params.put("description", "Best Hotel EVER!!!");
-		params.put("location", "Cancun");
+		params.put("hotelName", "Paseos de la Cascada");
+		params.put("checkin", "22/02/2019");
+		params.put("checkout", "25/02/2019");
+		params.put("people", "2 Adult 1 Child");
 	}
 }
 
@@ -24,10 +25,12 @@ public class Case_4 {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		Costumer customer = new Costumer ();
-		Data_4 data = new Data_4 ();
+		Data_4 data= new Data_4 ();
 		
 		customer.login(driver);
-		//customer.makeTheBook(driver, data);
+		customer.compareInformation(driver, data);
+
+		driver.close();
 		
 	}
 	
