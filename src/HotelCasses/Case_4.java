@@ -1,11 +1,8 @@
 package HotelCasses;
-
 	import final_proyect.Costumer;
 	import final_proyect.Data;
-
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.WebDriver;
+	import java.util.concurrent.TimeUnit;
+	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.chrome.ChromeDriver;
 
 
