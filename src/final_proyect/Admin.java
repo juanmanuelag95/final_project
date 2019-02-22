@@ -243,19 +243,33 @@ public class Admin extends User {
 		
 	}
 	
-	public boolean validateHotelIsAble(WebDriver driver, String hotel, Data data) throws ParseException {
+	public boolean validateHotelIsAble(WebDriver driver, String hotel,  Data data) throws ParseException, InterruptedException {
+		
 		JavascriptExecutor js = (JavascriptExecutor)driver;
-				
+
+		Thread.sleep(3000);
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
 		js.executeScript("window.scrollBy(0,1000)");
-		driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[3]/a")).click();
-		driver.findElement(By.name("phrase")).sendKeys(data.params.get("HotelName"));
+		WebElement hotelName = driver.findElement(By.xpath("//*[@id='content']/div/div[2]/div/div/div[1]/div[2]/table"));
+		List<WebElement> columns = hotelName.findElements(By.tagName("td"));
+		System.out.println(columns.size());
+		int i = 0;
+		int indexHotel = 0;
+		for (WebElement cell: columns){
+			if ((cell.getText().contains(hotel))) {
+				indexHotel = i / 11;
+				indexHotel++;
+				break;
+			}
+			i++;
+		}
+		WebElement HotelStatus = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[2]/table/tbody/tr["+indexHotel+"]/td[11]/i"));
 		
-		
-		
-		return true;
-		
+		if (HotelStatus.getAttribute("class").equals("fa fa-check text-success"))
+	    		return true;
+	    	else
+	    		return false;	    
 	}
 	
 }
