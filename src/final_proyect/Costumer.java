@@ -126,4 +126,31 @@ public class Costumer extends User {
 		
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
 	}
+
+	public boolean checkFacilities(WebDriver driver, Data data) throws InterruptedException {
+		Thread.sleep(3000);
+        makeTheBook(driver,data);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        
+        WebElement dateWidget = driver.findElement(By.xpath("//*[@id=\"body-section\"]/div[5]/div/div[3]/div[1]/div/table"));
+		List<WebElement> listOptions = dateWidget.findElements(By.tagName("td"));
+            
+        for (WebElement option: listOptions) {
+        	js.executeScript("window.scrollBy(0,200)");
+        	if (option.findElement(By.tagName("b")).getText().contains(data.params.get("toSearch"))) {
+        		List<WebElement> listFacilities = option.findElements(By.tagName("img"));
+        		boolean result;
+        		
+        		if (listFacilities.size() > 1)
+        			result = true;
+        		else
+        			result = false;
+        		
+        		js.executeScript("window.scrollBy(0,2000)");
+                return result;
+	    	}
+        }
+        
+        return false; 
+	}
 }

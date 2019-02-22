@@ -1,6 +1,7 @@
 package final_proyect;
 
 	import java.text.ParseException;
+	import org.openqa.selenium.JavascriptExecutor;
 	import java.text.SimpleDateFormat;
 	import java.time.LocalDateTime;
 	import java.time.format.DateTimeFormatter;
@@ -239,6 +240,21 @@ public class Admin extends User {
 		
 		logout(driver);
 		driver.close();
+		
+	}
+	
+	public boolean validateHotelIsAble(WebDriver driver, String hotel, Data data) throws ParseException {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+				
+		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
+		js.executeScript("window.scrollBy(0,1000)");
+		driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[3]/a")).click();
+		driver.findElement(By.name("phrase")).sendKeys(data.params.get("HotelName"));
+		
+		
+		
+		return true;
 		
 	}
 	
