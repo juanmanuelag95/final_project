@@ -37,6 +37,7 @@ public class Case_7 {
 			System.out.println("Hotel booking failed");
 		}
 		
+		driver.close();
 	}
 	
 }
