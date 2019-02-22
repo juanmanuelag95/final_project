@@ -7,11 +7,12 @@ import final_proyect.Data;
 	
 class Data_5_Coupon extends Data {
 	Data_5_Coupon(){		
-		params.put("hotel", "RENDEZVOUS HOTELS");
+		params.put("hotelName", "Ödeme Seçenekleri");
 		params.put("checkin", "28/02/2019");
 		params.put("checkout", "10/03/2019");
 		params.put("location", "Ödeme Seçenekleri , Singapore");
 		params.put("coupon", "wWIw");
+		params.put("people", "2 Adult 0 Child");
 	}
 }
 
