@@ -17,8 +17,9 @@ public class Costumer extends User {
 
 	@Override
 	public void logout(WebDriver driver) throws InterruptedException {
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/ul/li[1]/a")).click();
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[2]/ul/li[1]/ul/li[2]/a")).click();
 	}
 
@@ -58,45 +59,34 @@ public class Costumer extends User {
         return result;
 	}
 
-	private void makeTheBook(WebDriver driver, Data data) {
-		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[2]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("hotel"));
+	private void makeTheBook(WebDriver driver, Data data) throws InterruptedException {
+		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("hotelName"));
+		Thread.sleep(2000);
+		
         List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='select2-result-label']"));
+		for (WebElement option: listOptions){
+            if (option.getText().contains(data.params.get("hotelName")))   
+                option.click();
+		}
         
-        for (WebElement option: listOptions) {
-        	if (option.getText().equalsIgnoreCase(data.params.get("location"))) {
-        		option.click();
-        		break;
-        	}
-        }
-        	
-        driver.findElement(By.name("checkin")).sendKeys(data.params.get("checkin"));
-        driver.findElement(By.name("checkout")).sendKeys(data.params.get("checkout"));
-        driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.name("checkin")).sendKeys(data.params.get("checkin"));
+		driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys(data.params.get("checkout"));
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).clear();
+		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).sendKeys(data.params.get("people"));
+		Thread.sleep(2000); 
+		driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
 	}
 	
 	public void bookHotel(WebDriver driver, Data data) throws InterruptedException {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
-		Thread.sleep(6000);
-		driver.findElement(By.xpath("/html/body/nav/div/div[2]/ul[1]/li[1]/a")).click();
-		Thread.sleep(6000);
-		driver.findElement(By.xpath("//*[@id=\"s2id_autogen9\"]")).sendKeys(data.params.get("HotelName"));
-		Thread.sleep(3000);
-		List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='select2-result-label']"));
-		for (WebElement option: listOptions){
-            if (option.getText().contains(data.params.get("HotelName")))   
-                option.click();
-		}
-		
-		Thread.sleep(3000);
-		driver.findElement(By.name("checkin")).sendKeys(data.params.get("CheckIn"));
-		driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys(data.params.get("CheckOut"));
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).clear();
-		driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).sendKeys(data.params.get("People"));
-		Thread.sleep(5000); 
-		driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+		makeTheBook(driver, data);
 		
 		//At hotel's page
 		
