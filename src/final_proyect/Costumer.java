@@ -39,8 +39,11 @@ public class Costumer extends User {
         
         driver.findElement(By.xpath("//*[@id='ROOMS']/div/button")).click();
         driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[2]/input")).sendKeys(data.params.get("coupon"));
+        Thread.sleep(2000);
         driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[3]/span")).click();
+        Thread.sleep(3000);
         driver.findElement(By.name("logged")).click();
+        Thread.sleep(6000);
         driver.findElement(By.xpath("//*[@class=\"btn btn-default arrivalpay\"]")).click();
        
         Alert simpleAlert = driver.switchTo().alert();
@@ -208,7 +211,7 @@ public class Costumer extends User {
         driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[2]/input")).sendKeys(data.params.get("coupon"));
         driver.findElement(By.xpath("//*[@id=\"bookingdetails\"]/div[5]/div[2]/div[2]/div[3]/span")).click();
         
-        Thread.sleep(1000);
+        Thread.sleep(6000);
         Alert simpleAlert = driver.switchTo().alert();
         boolean result;
         
