@@ -64,11 +64,6 @@ public class Admin extends User {
 		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
 		
 		// Fill the form
-		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
-
 		WebElement Status = driver.findElement(By.name("status"));
 		Select selectStatus = new Select(Status);
 		selectStatus.selectByVisibleText(datac.params.get("status"));
@@ -79,6 +74,7 @@ public class Admin extends User {
 		driver.findElement(By.name("startdate")).sendKeys(datac.params.get("startdate"));
 		driver.findElement(By.name("expdate")).sendKeys(datac.params.get("expdate"));
 		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[1]/ins")).click();
+		driver.manage().window().setSize(new Dimension(1100,800));
 		driver.findElement(By.name("code")).sendKeys(datac.params.get("CuponCode"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(datac.params.get("Assign_hotel"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(Keys.ENTER);
@@ -120,7 +116,7 @@ public class Admin extends User {
 		driver.manage().window().setSize(new Dimension(1100,800));
 		Thread.sleep(3000);
 		// Fill the form
-		driver.manage().window().setSize(new Dimension(1000,900));
+		
 		driver.findElement(By.name("code")).sendKeys(data.params.get("CuponCode"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(data.params.get("Assign_hotel"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(Keys.ENTER);
