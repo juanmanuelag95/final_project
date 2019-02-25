@@ -24,10 +24,10 @@ public class Costumer extends User {
 	}
 
 	public boolean couponAvailable(WebDriver driver, Data data) throws InterruptedException {
-		Thread.sleep(3000);
+		Thread.sleep(2000);
         makeTheBook(driver,data);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         js.executeScript("window.scrollBy(0,1300)");
         
         List<WebElement> listOptions = driver.findElements(By.xpath("//div[@class='control__indicator']"));
