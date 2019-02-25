@@ -8,6 +8,7 @@ package final_proyect;
 	import java.util.Date;
 	import java.util.List;
 	import org.openqa.selenium.By;
+	import org.openqa.selenium.Dimension;
 	import java.util.concurrent.TimeUnit;
 	import org.openqa.selenium.Keys;
 	import org.openqa.selenium.WebDriver;
@@ -116,6 +117,8 @@ public class Admin extends User {
 		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[3]/ins")).click();
 		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[4]/ins")).click();
 		
+		driver.manage().window().setSize(new Dimension(1100,800));
+		Thread.sleep(3000);
 		// Fill the form
 		driver.findElement(By.name("code")).sendKeys(data.params.get("CuponCode"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(data.params.get("Assign_hotel"));
