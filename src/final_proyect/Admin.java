@@ -135,7 +135,17 @@ public class Admin extends User {
 	private void goToCopuon(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
+		
+		WebElement sideBar = driver.findElement(By.xpath("/html/body/div[2]/aside/div/div[6]/div/ul"));
+		List<WebElement> columns = sideBar.findElements(By.tagName("li"));
+
+		for (WebElement cell: columns){
+			String partialText = cell.findElement(By.tagName("a")).getText();
+			if (partialText.contains("COUPONS")) {
+				cell.click();
+				break;
+			}
+		}
 	}
 
 	public boolean validateCuponAvailable(WebDriver driver, String cupon) throws ParseException {
