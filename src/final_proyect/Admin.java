@@ -132,7 +132,6 @@ public class Admin extends User {
 		Thread.sleep(6000);
 	}
 
-	// Fix to dynamic search !!!
 	private void goToCopuon(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
