@@ -103,7 +103,7 @@ public class Costumer extends User {
 		if (rooms.size() == 0)
 		{
 			
-			System.out.println("No rooms vailable");
+			System.out.println("No rooms available");
 			
 		} else { 
 			

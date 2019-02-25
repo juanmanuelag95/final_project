@@ -242,7 +242,7 @@ public class Admin extends User {
 		
 	}
 	
-	public boolean validateHotelIsAble(WebDriver driver, String hotel,  Data data) throws ParseException, InterruptedException {
+	public boolean validateHotelIsAble(WebDriver driver, Data data) throws ParseException, InterruptedException {
 		
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 
@@ -252,11 +252,10 @@ public class Admin extends User {
 		js.executeScript("window.scrollBy(0,1000)");
 		WebElement hotelName = driver.findElement(By.xpath("//*[@id='content']/div/div[2]/div/div/div[1]/div[2]/table"));
 		List<WebElement> columns = hotelName.findElements(By.tagName("td"));
-		System.out.println(columns.size());
 		int i = 0;
 		int indexHotel = 0;
 		for (WebElement cell: columns){
-			if ((cell.getText().contains(hotel))) {
+			if ((cell.getText().contains(data.params.get("hotelName")))) {
 				indexHotel = i / 11;
 				indexHotel++;
 				break;
