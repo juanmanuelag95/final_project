@@ -244,7 +244,7 @@ public class Costumer extends User {
 		List<WebElement> rooms = roomsTable.findElements(By.tagName("td"));
 		if (rooms.size() == 0)
 		{
-			System.out.println("No rooms vailable");
+			System.out.println("No rooms avilable");
 		} else {
 			WebElement room = rooms.get(0);
 			//System.out.println(room);
@@ -332,6 +332,43 @@ public class Costumer extends User {
 
 		}
 
+	}
+	
+	public void checkAmenities(WebDriver driver, Data data) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		
+		makeTheBook(driver, data);
+		
+		js.executeScript("window.scrollBy(0,1000)");
+		Thread.sleep(2000);
+		
+		WebElement roomsTable = driver.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/table"));
+		List<WebElement> rooms = roomsTable.findElements(By.tagName("td"));
+		if (rooms.size() == 0)
+		{
+			System.out.println("\nNo rooms avilable");
+		} else {
+			
+			WebElement room = rooms.get(0);
+			room.findElement(By.xpath("//*[@id=\"ROOMS\"]/div/table/tbody/tr/td/div[2]/div[2]/div/div[1]/button[1]")).click();
+			
+			js.executeScript("window.scrollBy(0,5000)");
+			Thread.sleep(2000);
+			
+			String heading = room.findElement(By.xpath("//*[@id=\"details48\"]/div/div/p[2]")).getText();
+			System.out.println("\nHEADING: \"" + heading + "\"");
+			
+			List<WebElement> amenities = room.findElements(By.cssSelector("[class = 'col-md-4']"));
+			System.out.println("AMENITIES DISPLAYED: " + amenities.size() + "\n");
+
+			if(amenities.size() > 0) {
+				for(WebElement item : amenities) {
+					System.out.println(item.getText());				
+				}
+			}
+			
+		}
+		
 	}
 	
 }
