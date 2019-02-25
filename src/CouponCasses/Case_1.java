@@ -11,7 +11,7 @@ import final_proyect.Data;
 class DataC8 extends Data {
 	DataC8() {
 		params.put("coupon", "Maxlimit");
-		params.put("hotelName", "Ödeme Seçenekleri");
+		params.put("hotelName", "Ã–deme SeÃ§enekleri");
 		params.put("checkin", "22/04/2019");
 		params.put("checkout", "25/04/2019");
 		params.put("people", "1 Adult 1 Child");
