@@ -120,6 +120,7 @@ public class Admin extends User {
 		driver.manage().window().setSize(new Dimension(1100,800));
 		Thread.sleep(3000);
 		// Fill the form
+		driver.manage().window().setSize(new Dimension(1000,900));
 		driver.findElement(By.name("code")).sendKeys(data.params.get("CuponCode"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(data.params.get("Assign_hotel"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(Keys.ENTER);
@@ -187,7 +188,7 @@ public class Admin extends User {
 	}
 
 	public void autogenerateCoupon(WebDriver driver, Data datac7) throws InterruptedException {
-
+		
 		// Go to Coupon-Add Section
 		goToCopuon(driver);
 		driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button")).click();
@@ -202,6 +203,8 @@ public class Admin extends User {
 		driver.findElement(By.name("expdate")).sendKeys(datac7.params.get("expdate"));
 		driver.findElement(By.xpath("//*[@id=\"addcoupon\"]/div[2]/div[1]/div[2]/div/div[1]/ins")).click();
 		Thread.sleep(1000);
+
+		driver.manage().window().setSize(new Dimension(1000,900));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(datac7.params.get("Assign_hotel"));
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen2\"]")).sendKeys(Keys.ENTER);
 		driver.findElement(By.xpath("//*[@id=\"s2id_autogen4\"]")).sendKeys(datac7.params.get("Assign_Tours"));
@@ -217,7 +220,6 @@ public class Admin extends User {
 		WebElement text = driver.findElement(By.xpath("//*[@id=\"codeadd\"]"));
 		String AutoCode = text.getAttribute("value");
 		datac7.params.put("CuponCode", AutoCode);
-
 		driver.findElement(By.xpath("//*[@class=\"btn btn-primary submitcoupon\"]")).click();
 		Thread.sleep(6000);
 
@@ -255,7 +257,7 @@ public class Admin extends User {
 		
 	}
 	
-	public boolean validateHotelIsAble(WebDriver driver, String hotel,  Data data) throws ParseException, InterruptedException {
+	public boolean validateHotelIsAble(WebDriver driver, Data data) throws ParseException, InterruptedException {
 		
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 
@@ -265,11 +267,10 @@ public class Admin extends User {
 		js.executeScript("window.scrollBy(0,1000)");
 		WebElement hotelName = driver.findElement(By.xpath("//*[@id='content']/div/div[2]/div/div/div[1]/div[2]/table"));
 		List<WebElement> columns = hotelName.findElements(By.tagName("td"));
-		System.out.println(columns.size());
 		int i = 0;
 		int indexHotel = 0;
 		for (WebElement cell: columns){
-			if ((cell.getText().contains(hotel))) {
+			if ((cell.getText().contains(data.params.get("hotelName")))) {
 				indexHotel = i / 11;
 				indexHotel++;
 				break;

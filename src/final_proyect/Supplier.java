@@ -28,7 +28,9 @@ public class Supplier extends User {
 		//Expecting logged in and at https://www.phptravels.net/supplier
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+		
+		driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[3]/div/button[4]")).click();
+		Thread.sleep(2000);
 		WebElement initialTable = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/div/div[1]/div[2]/table/tbody"));
 		return (initialTable.findElements(By.tagName("tr")).size());
 		
