@@ -128,11 +128,20 @@ public class Admin extends User {
 		Thread.sleep(6000);
 	}
 
-	// Fix to dynamic search !!!
 	private void goToCopuon(WebDriver driver) {
 		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[7]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"Hotels\"]/li[1]/a")).click();
-		driver.findElement(By.xpath("//*[@id=\"social-sidebar-menu\"]/li[31]/a")).click();
+		
+		WebElement sideBar = driver.findElement(By.xpath("/html/body/div[2]/aside/div/div[6]/div/ul"));
+		List<WebElement> columns = sideBar.findElements(By.tagName("li"));
+
+		for (WebElement cell: columns){
+			String partialText = cell.findElement(By.tagName("a")).getText();
+			if (partialText.contains("COUPONS")) {
+				cell.click();
+				break;
+			}
+		}
 	}
 
 	public boolean validateCuponAvailable(WebDriver driver, String cupon) throws ParseException {
@@ -243,7 +252,7 @@ public class Admin extends User {
 		
 	}
 	
-	public boolean validateHotelIsAble(WebDriver driver, String hotel,  Data data) throws ParseException, InterruptedException {
+	public boolean validateHotelIsAble(WebDriver driver, Data data) throws ParseException, InterruptedException {
 		
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 
@@ -253,11 +262,10 @@ public class Admin extends User {
 		js.executeScript("window.scrollBy(0,1000)");
 		WebElement hotelName = driver.findElement(By.xpath("//*[@id='content']/div/div[2]/div/div/div[1]/div[2]/table"));
 		List<WebElement> columns = hotelName.findElements(By.tagName("td"));
-		System.out.println(columns.size());
 		int i = 0;
 		int indexHotel = 0;
 		for (WebElement cell: columns){
-			if ((cell.getText().contains(hotel))) {
+			if ((cell.getText().contains(data.params.get("hotelName")))) {
 				indexHotel = i / 11;
 				indexHotel++;
 				break;

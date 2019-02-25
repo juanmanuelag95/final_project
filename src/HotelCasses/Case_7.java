@@ -30,7 +30,7 @@ public class Case_7 {
 		supp.bookHotel(driver, data);
 		int bookings_after = supp.countBookings(driver);
 		
-		if (bookings_after == bookings_before + 1) {
+		if (bookings_after > bookings_before) {
 			System.out.println("Hotel succesfully booked");
 		}
 		else {
